@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
 
@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 console.log("Rendering RootNavigation");
 const RootNavigation = () => {
     return (
-        <NavigationContainer>
+
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Project1" component={Project1} />
@@ -26,7 +26,6 @@ const RootNavigation = () => {
             <Stack.Screen name="Project7" component={Project7} />
             <Stack.Screen name="Project8" component={Project8} />
           </Stack.Navigator>
-        </NavigationContainer>
       );
 }
 

@@ -1,19 +1,15 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import RootNavigation from './src/RootNavigation';
-import BottomNavigation from './src/BottomNavigation';
+import MainScreen from './src/MainScreen';
+import { View } from 'react-native';
+import Calculator from './src/Lab1/Calculator';
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <RootNavigation />
+    <View style={{ flex: 1 }}>
+    <Calculator/>
+
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, 
-    justifyContent: 'space-between', 
-  },
-});
+export default App;
