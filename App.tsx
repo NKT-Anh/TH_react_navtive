@@ -1,12 +1,12 @@
 import React from 'react';
 import MainScreen from './src/MainScreen';
 import { View } from 'react-native';
-import LoadScreen from './src/Lab2/LoadScreen';
+import ScreenShotNavigation from './src/Lab3/Compoment/ScreenShotNavigation';
 
 const App = () => {
   return (
     <View style={{ flex: 1 }}>
-    <LoadScreen/>
+    <ScreenShotNavigation/>
 
     </View>
   );
