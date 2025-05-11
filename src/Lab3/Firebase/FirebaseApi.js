@@ -7,7 +7,14 @@ import { useContext } from 'react';
 export const loginUser = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        return userCredential.user;
+        const user = userCredential.user;
+
+        const userDoc = await getDoc(doc(db, 'User', user.uid));
+        if (userDoc.exists()) {
+            return { ...userDoc.data(), uid: user.uid };
+        } else {
+            throw new Error('Không tìm thấy thông tin người dùng!');
+        }
     } catch (error) {
         throw new Error(error.message);
     }
@@ -17,10 +24,13 @@ export const registerUser = async (email, password, name, phone) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
+       
         await setDoc(doc(db, 'User', user.uid), {
             name: name || '',
             email: email || '',
             phone: phone || '',
+            role: 'user',
             createdAt: new Date().toISOString(),
         });
 
@@ -98,5 +108,14 @@ export const updateService = async (serviceId, updatedData) => {
     } catch (error) {
         console.error("Error updating service:", error.message);
         throw new Error("Không thể cập nhật dịch vụ. Vui lòng thử lại!");
+    }
+}
+export const deleteUser = async (userId) => {
+    try {
+        const userRef = doc(db, "User", userId);
+        await deleteDoc(userRef);
+    } catch (error) {
+        console.error("Error deleting user:", error.message);
+        throw new Error("Không thể xóa người dùng. Vui lòng thử lại!");
     }
 }

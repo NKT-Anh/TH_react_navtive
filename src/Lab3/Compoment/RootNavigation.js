@@ -12,6 +12,9 @@ import { Alert,TouchableOpacity } from 'react-native';
 import { deleteService } from '../Firebase/FirebaseApi';
 import Setting from '../Screen/Setting';
 import EditService from '../Screen/EditService';
+import Customer from '../Screen/Customer';
+import Transaction from '../Screen/Transaction';
+import CustomerList from '../Screen/CustomerList';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -27,7 +30,7 @@ const BottomTabNavigator = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Transaction') {
                         iconName = focused ? 'receipt' : 'receipt-outline';
-                    } else if (route.name === 'Customer') {
+                    } else if (route.name === 'CustomerList') {
                         iconName = focused ? 'people' : 'people-outline';
                     } else if (route.name === 'Setting') {
                         iconName = focused ? 'settings' : 'settings-outline';
@@ -41,8 +44,8 @@ const BottomTabNavigator = () => {
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Transaction" component={Services} />
-            <Tab.Screen name="Customer" component={Services} />
+            <Tab.Screen name="Transaction" component={Transaction} />
+            <Tab.Screen name="CustomerList" component={CustomerList} />
             <Tab.Screen name="Setting" component={Setting} />
         </Tab.Navigator>
     );
@@ -57,6 +60,11 @@ const RootNavigation = () => {
                     name="Login" 
                     component={Login} 
                     options={{ headerShown: false }} 
+                />
+                <Stack.Screen 
+                    name="Customer" 
+                    component={Customer} 
+                    options={{ title: 'Thông tin người dùng', headerStyle: { backgroundColor: '#ef506b' }, headerTintColor: '#fff' }}
                 />
                 <Stack.Screen 
                     name="EditService" 

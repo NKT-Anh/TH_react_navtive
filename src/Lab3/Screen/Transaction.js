@@ -3,7 +3,7 @@ import React from 'react'
 
 const Transaction = () => {
   return (
-    <View>
+    <View justifyContent='center' alignItems='center' style={{flex:1}}>
       <Text>Transaction</Text>
     </View>
   )

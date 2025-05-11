@@ -8,17 +8,25 @@ const Login = ({ navigation }) => {
 
     const handleLogin = async () => {
         if (!email || !password) {
-            Alert.alert('Error', 'Please fill in all fields');
+            Alert.alert('Lỗi', 'Vui lòng điền đầy đủ thông tin');
             return;
         }
 
         try {
             const user = await loginUser(email, password);
-            Alert.alert('Success', 'Đăng nhập thành công!');    
+            Alert.alert('Thành công', 'Đăng nhập thành công!');
             console.log('User:', user);
-            navigation.navigate('Main');
+
+            // Điều hướng dựa trên vai trò
+            if (user.role === 'admin') {
+                navigation.navigate('Main'); // Điều hướng đến Home nếu là admin
+            } else if (user.role === 'user') {
+                navigation.navigate('Customer'); // Điều hướng đến Customer nếu là user
+            } else {
+                Alert.alert('Lỗi', 'Vai trò không hợp lệ!');
+            }
         } catch (error) {
-            Alert.alert('Login Error', error.message);
+            Alert.alert('Lỗi đăng nhập', error.message);
         }
     };
 
@@ -44,7 +52,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                <Text style={styles.link}>Chưa có tài khoản ? SignUp</Text>
+                <Text style={styles.link}>Chưa có tài khoản? Đăng ký</Text>
             </TouchableOpacity>
         </View>
     );

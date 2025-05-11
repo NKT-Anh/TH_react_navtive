@@ -1,9 +1,10 @@
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import React, { useContext } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { UserContext } from '../Firebase/UserContext';
+import { Ionicons } from '@expo/vector-icons';
 import { logoutUser } from '../Firebase/FirebaseApi';
+import { UserContext } from '../Firebase/UserContext';
 
-const Setting = ({ navigation }) => {
+const Customer = ({ navigation }) => {
     const { user } = useContext(UserContext);
 
     const handleLogout = async () => {
@@ -29,8 +30,14 @@ const Setting = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Thông tin cá nhân</Text>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>Thông tin người dùng</Text>
+                <TouchableOpacity onPress={handleLogout}>
+                    <Ionicons name="log-out-outline" size={24} color="#ef506b" />
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.infoContainer}>
                 <Text style={styles.label}>Tên:</Text>
                 <Text style={styles.value}>{user?.name || 'Không có tên'}</Text>
@@ -41,32 +48,31 @@ const Setting = ({ navigation }) => {
                 <Text style={styles.label}>Số điện thoại:</Text>
                 <Text style={styles.value}>{user?.phone || 'Không có số điện thoại'}</Text>
             </View>
-
-            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                <Text style={styles.logoutText}>Đăng xuất</Text>
-            </TouchableOpacity>
-        </SafeAreaView>
+        </View>
     );
 };
 
-export default Setting;
+export default Customer;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
         padding: 20,
-        paddingTop: 40, // Thêm khoảng cách phía trên để tránh vùng trạng thái
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
-        textAlign: 'center',
         color: '#333',
     },
     infoContainer: {
-        marginBottom: 30,
+        marginTop: 20,
     },
     label: {
         fontSize: 16,
@@ -78,16 +84,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#777',
         marginBottom: 10,
-    },
-    logoutButton: {
-        backgroundColor: '#ef506b',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    logoutText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
     },
 });
