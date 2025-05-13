@@ -15,6 +15,11 @@ import EditService from '../Screen/EditService';
 import Customer from '../Screen/Customer';
 import Transaction from '../Screen/Transaction';
 import CustomerList from '../Screen/CustomerList';
+import CustomerServices from '../Screen/CustomerServices';
+import CustomerAppointments from '../Screen/CustomerAppointments';
+import CustomerProfile from '../Screen/CustomerProfile';
+import BookAppointment from '../Screen/BookAppointment';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -64,7 +69,7 @@ const RootNavigation = () => {
                 <Stack.Screen 
                     name="Customer" 
                     component={Customer} 
-                    options={{ title: 'Thông tin người dùng', headerStyle: { backgroundColor: '#ef506b' }, headerTintColor: '#fff' }}
+                    options={{ headerShown: false }} 
                 />
                 <Stack.Screen 
                     name="EditService" 
@@ -129,8 +134,45 @@ const RootNavigation = () => {
                             backgroundColor: '#ef506b', 
                         },
                         headerTintColor: '#fff',
-                    
                     }} 
+                />
+
+                {/* Customer Screens */}
+                <Stack.Screen 
+                    name="CustomerServices" 
+                    component={CustomerServices}
+                    options={{ 
+                        title: 'Dịch vụ',
+                        headerStyle: { backgroundColor: '#ef506b' },
+                        headerTintColor: '#fff'
+                    }}
+                />
+                <Stack.Screen 
+                    name="CustomerAppointments" 
+                    component={CustomerAppointments}
+                    options={{ 
+                        title: 'Lịch hẹn',
+                        headerStyle: { backgroundColor: '#ef506b' },
+                        headerTintColor: '#fff'
+                    }}
+                />
+                <Stack.Screen 
+                    name="CustomerProfile" 
+                    component={CustomerProfile}
+                    options={{ 
+                        title: 'Thông tin cá nhân',
+                        headerStyle: { backgroundColor: '#ef506b' },
+                        headerTintColor: '#fff'
+                    }}
+                />
+                <Stack.Screen 
+                    name="BookAppointment" 
+                    component={BookAppointment}
+                    options={{ 
+                        title: 'Đặt lịch hẹn',
+                        headerStyle: { backgroundColor: '#ef506b' },
+                        headerTintColor: '#fff'
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

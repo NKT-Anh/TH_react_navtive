@@ -3,7 +3,9 @@ import React, { useEffect, useState, createContext } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth,db } from './FirebaseConfig';
 import { doc, onSnapshot } from 'firebase/firestore';
+
 export const UserContext = createContext();
+
 export const UserProvider = ({children}) => {
     const [user,setUser] = useState();
     useEffect(()=>{
@@ -14,12 +16,13 @@ export const UserProvider = ({children}) => {
                     if(snap.exists()){
                         const userData = snap.data();
                         setUser({
-                            id:firebaseUser.uid,
-                            phone:userData.phone || '',
-                            email:userData.email || '',
-                            role:userData.role || '',
-                            name:userData.name || '',
-
+                            id: firebaseUser.uid,
+                            phone: userData.phone || '',
+                            email: userData.email || '',
+                            role: userData.role || '',
+                            name: userData.name || '',
+                            address: userData.address || '',
+                            avatar: userData.avatar || null
                         })
                     }
                     else{
@@ -27,18 +30,16 @@ export const UserProvider = ({children}) => {
                     }
                 })
                 return () => unsubscribeUser();
-
             }
             else{
                 setUser(null);
             }
         })
         return () => unsubscribeAuth();
-
     },[]);
     return (
-    <UserContext.Provider value = {{user,setUser}}>
-        {children}
-    </UserContext.Provider>
-  )
+        <UserContext.Provider value={{user,setUser}}>
+            {children}
+        </UserContext.Provider>
+    )
 }

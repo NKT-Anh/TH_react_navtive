@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.navBar}>
                 <Text style={styles.storeName}>HUYỀN TRINH</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Services')}>
@@ -56,7 +56,7 @@ const Home = ({ navigation }) => {
                     />
                 )}
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

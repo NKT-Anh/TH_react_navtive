@@ -3,6 +3,53 @@ import React, { useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { logoutUser } from '../Firebase/FirebaseApi';
 import { UserContext } from '../Firebase/UserContext';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CustomerServices from './CustomerServices';
+import CustomerAppointments from './CustomerAppointments';
+import CustomerProfile from './CustomerProfile';
+
+const Tab = createBottomTabNavigator();
+
+const CustomerTabs = () => {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Services') {
+                        iconName = focused ? 'list' : 'list-outline';
+                    } else if (route.name === 'Appointments') {
+                        iconName = focused ? 'calendar' : 'calendar-outline';
+                    } else if (route.name === 'Profile') {
+                        iconName = focused ? 'person' : 'person-outline';
+                    }
+
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: '#ef506b',
+                tabBarInactiveTintColor: 'gray',
+                headerShown: false,
+            })}
+        >
+            <Tab.Screen 
+                name="Services" 
+                component={CustomerServices}
+                options={{ title: 'Dịch vụ' }}
+            />
+            <Tab.Screen 
+                name="Appointments" 
+                component={CustomerAppointments}
+                options={{ title: 'Lịch hẹn' }}
+            />
+            <Tab.Screen 
+                name="Profile" 
+                component={CustomerProfile}
+                options={{ title: 'Cá nhân' }}
+            />
+        </Tab.Navigator>
+    );
+};
 
 const Customer = ({ navigation }) => {
     const { user } = useContext(UserContext);
@@ -29,27 +76,7 @@ const Customer = ({ navigation }) => {
         );
     };
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Thông tin người dùng</Text>
-                <TouchableOpacity onPress={handleLogout}>
-                    <Ionicons name="log-out-outline" size={24} color="#ef506b" />
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.infoContainer}>
-                <Text style={styles.label}>Tên:</Text>
-                <Text style={styles.value}>{user?.name || 'Không có tên'}</Text>
-
-                <Text style={styles.label}>Email:</Text>
-                <Text style={styles.value}>{user?.email || 'Không có email'}</Text>
-
-                <Text style={styles.label}>Số điện thoại:</Text>
-                <Text style={styles.value}>{user?.phone || 'Không có số điện thoại'}</Text>
-            </View>
-        </View>
-    );
+    return <CustomerTabs />;
 };
 
 export default Customer;
